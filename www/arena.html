@@ -37,7 +37,7 @@
 
             <div class="arena" id="arena">
 
-                <!-- <div id="box" class="box"></div> -->
+               <div id="box" class="box"></div> 
                     
             </div>
 
@@ -125,11 +125,13 @@
 
             var gotGoal = false;
 
+            var InitCountDown = 20;
+
             document.addEventListener("deviceready", onDeviceReady, false);
 
             function onDeviceReady() {
 
-
+               $('.time').html(InitCountDown);
 
               /*var canvas = document.getElementById('arena');
               var context = canvas.getContext('2d');
@@ -154,13 +156,13 @@
 
                
 
-             countdown_init();
+              countdown_init();
                 
 
             }
 
-             function countdown_init() {
-                countdown_number = 5;
+            function countdown_init() {
+                countdown_number = InitCountDown;
                 countdown_trigger();
             }
 
@@ -175,6 +177,7 @@
                 }
 
                 if (countdown_number == 0) {
+
                   clearTimeout(countdown);
 
 
@@ -195,7 +198,7 @@
             function countdown_clear() {
                 clearTimeout(countdown);
                
-            }         
+            }       
           
             function devicemotionHandler(event){
                 accelerometerSuccess(event.accelerationIncludingGravity);
@@ -203,15 +206,7 @@
 
             function accelerometerSuccess(acceleration) {
                 
-                          
-                  /*var current = $("#box").position();
-                  var x = current.left;
-                  var y = current.top;
-                  var coordinate = "x=" + x + ", y=" + y;
-                  var canvas = $("#box").getContext('2d');
-                  var p = canvas.getImageData(x, y, 1, 1).data;
-                  var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
-                  alert(hex);*/
+                var current = $("#box").position();
 
                 $("#box").css({
                   left: checkValue(current.left - acceleration.x, 0, $("#arena").width()-10) + "px",
@@ -237,14 +232,6 @@
             function accelerometerError(msg) {
                 $("#accelerometerStatus").html(typeof msg == 'string' ? msg : "failed");
             }
-
-            function rgbToHex(r, g, b){
-              if (r > 255 || g > 255 || b > 255)
-                  throw "Invalid color component";
-              return ((r << 16) | (g << 8) | b).toString(16);
-            }
-
-
 
         </script>
 
