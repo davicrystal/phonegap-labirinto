@@ -10,6 +10,7 @@
         
         <link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" href="css/index.css" />
+        <script type="text/javascript" src="cordova.js"></script>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
 
@@ -32,9 +33,13 @@
                 <h2>FUJA DO LABIRINTO!</h2>
             </div>
 
-            <div class="time">60</div>
+            <div class="time"></div>
 
-            <div class="arena"></div>
+            <div class="arena" id="arena">
+
+                <!-- <div id="box" class="box"></div> -->
+                    
+            </div>
 
             <div class="button-app"><a href="index.html" class="ui-btn ui-corner-all" rel="external">VOLTAR</a></div>
             
@@ -44,15 +49,202 @@
                 <h4>OID GAMES</h4>
             </div>
 
-            
-            
-            
+        </div>
+
+         <!-- PAGE 02 - GAME OVER -->
+
+        <div data-role="page" id="page-game-over">
+
+            <div data-role="header">
+                <h1>LABIRINT0</h1>
+            </div>
+
+             <div role="main" class="ui-content" id="page03">
+
+                <div class="gameOver">
+                    <h1>GAME OVER</h1>
+                </div>
+
+                <div class="button-app">
+                  <a href="arena.html" class="ui-btn ui-corner-all" rel="external">
+                  TENTAR NOVAMENTE</a>
+                </div>
+
+                <div class="button-app">
+                  <a href="index.html" class="ui-btn ui-corner-all" rel="external">SAIR</a>
+                </div>
+
+            </div>
+
+            <div data-role="footer">
+                <h4>OID GAMES</h4>
+            </div>
 
         </div>
-        
-        <script type="text/javascript">
 
-            app.initialize();
+        <!-- PAGE 03 - SUCCESS -->
+
+        <div data-role="page" id="page-success">
+
+            <div data-role="header">
+                <h1>LABIRINT0</h1>
+            </div>
+
+             <div role="main" class="ui-content" id="page03">
+
+                <div class="congrats">
+                    <h1>PARABÉNS</h1>
+                </div>
+
+                <div class="areaPoints">
+                  
+                  3203 pts
+
+                </div>
+
+                <div class="button-app">
+                  <a href="arena.html" class="ui-btn ui-corner-all" rel="external">
+                  TENTAR NOVAMENTE</a>
+                </div>
+
+                <div class="button-app">
+                  <a href="index.html" class="ui-btn ui-corner-all" rel="external">SAIR</a>
+                </div>
+
+            </div>
+
+            <div data-role="footer">
+                <h4>OID GAMES</h4>
+            </div>
+
+        </div>
+       
+       <script type="text/javascript">
+            
+            var watchID;
+
+            var gotGoal = false;
+
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            function onDeviceReady() {
+
+
+
+              /*var canvas = document.getElementById('arena');
+              var context = canvas.getContext('2d');
+              var img = new Image();
+              img.src = 'img/labirinto.png';
+              context.drawImage(img, 0, 0);*/
+
+                
+                if (navigator.accelerometer) {
+
+                  watchID = navigator.accelerometer.watchAcceleration(
+                                accelerometerSuccess, 
+                                accelerometerError, 
+                                { frequency: 25 }
+                            );
+
+                } else {
+
+                    accelerometerError('navigator.accelerometer not supported');
+
+                }
+
+               
+
+             countdown_init();
+                
+
+            }
+
+             function countdown_init() {
+                countdown_number = 5;
+                countdown_trigger();
+            }
+
+            function countdown_trigger() {
+
+                if(countdown_number > 0) {
+                    countdown_number--;
+                    $('.time').html(countdown_number);
+                    if(countdown_number > 0) {
+                        countdown = setTimeout('countdown_trigger()', 1000);
+                    }
+                }
+
+                if (countdown_number == 0) {
+                  clearTimeout(countdown);
+
+
+                    if(gotGoal == false){
+
+                      $.mobile.changePage( "#page-success", { transition: "slideup", changeHash: false });
+
+                    } else {
+
+                      $.mobile.changePage( "#page-game-over", { transition: "slideup", changeHash: false });
+
+                    }
+
+
+                };
+            }
+         
+            function countdown_clear() {
+                clearTimeout(countdown);
+               
+            }         
+          
+            function devicemotionHandler(event){
+                accelerometerSuccess(event.accelerationIncludingGravity);
+            }
+
+            function accelerometerSuccess(acceleration) {
+                
+                          
+                  /*var current = $("#box").position();
+                  var x = current.left;
+                  var y = current.top;
+                  var coordinate = "x=" + x + ", y=" + y;
+                  var canvas = $("#box").getContext('2d');
+                  var p = canvas.getImageData(x, y, 1, 1).data;
+                  var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+                  alert(hex);*/
+
+                $("#box").css({
+                  left: checkValue(current.left - acceleration.x, 0, $("#arena").width()-10) + "px",
+                  top: checkValue(current.top + acceleration.y, 0, $("#arena").height()-10) + "px",
+                });
+
+            }
+
+            function checkValue(value,min,max){
+
+                if(value<min){
+                
+                  value = min;
+                
+                } else if(value>max){
+                    
+                  value = max;
+                }
+
+                return parseInt(value);
+            }
+
+            function accelerometerError(msg) {
+                $("#accelerometerStatus").html(typeof msg == 'string' ? msg : "failed");
+            }
+
+            function rgbToHex(r, g, b){
+              if (r > 255 || g > 255 || b > 255)
+                  throw "Invalid color component";
+              return ((r << 16) | (g << 8) | b).toString(16);
+            }
+
+
 
         </script>
 

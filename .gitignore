@@ -1,0 +1,80 @@
+# IGNORE YII FRAMEWORK STUFF
+
+assets/
+adm/assets/
+protected/runtime/
+adm/protected/runtime/
+arquivos_apoio/
+arquivos_produtos/
+css_custom/
+imagens_banners/
+imagens_categorias/
+imagens_marcas/
+imagens_pagInst/
+imagens_produtos/
+imagens_publicidade/
+js_custom/
+protected/vendor/
+adm/protected/vendor/
+*.custom.html
+*.log
+robots.txt
+sitemap.xml
+
+
+# COMPOSER STUFF
+
+composer.lock
+
+
+# IGNORE SVN STUFF
+
+.svn
+
+# IGNORE ECLIPSE STUFF
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+
+*.launch
+
+# CDT-specific
+
+.cproject
+
+# PDT-specific
+
+.buildpath
+
+#IGNORE WINDOWS FILES
+
+# Windows image file caches
+
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+
+Desktop.ini
+
+# Recycle Bin used on file shares
+
+$RECYCLE.BIN/

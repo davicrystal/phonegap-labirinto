@@ -156,11 +156,14 @@ h1 {
 }
 
 .arena{
+    /*background: url(../img/labirinto.png);*/
+    /*background-size: 290px;*/
     float: left;
     position: relative;
     width: 100%;
     height: 300px;
-    background-color: #B3B3B3;
+    /*background-color: #ffffff;
+    background-repeat: no-repeat;*/
 }
 
 .button-app{
@@ -175,4 +178,64 @@ h1 {
 
     margin: -10px 0 0 0;
 
+}
+
+.box{
+    position:absolute; 
+    width: 7px; 
+    height: 7px; 
+    left: 50%; 
+    top: 50%;
+    border-radius: 3px;
+     animation:myfirst 1000ms infinite;
+    -webkit-animation:myfirst 1000ms infinite;
+ 
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes myfirst {
+    from {background: red;}
+    to {background: green;}
+}
+
+/* Standard syntax */
+@keyframes myfirst {
+    from {background: red;}
+    to {background: green;}
+}
+
+#page-game-over{
+    background-color: red;
+}
+
+.gameOver{
+    font-size: 30px;
+    font-weight: bolder;
+    color: #FFFFFF;
+    margin: 30px 0 30px 0;
+}
+
+.congrats{
+    font-size: 30px;
+    font-weight: bolder;
+    color: #FFFFFF;
+    margin: 30px 0 30px 0;
+}
+
+#page-success{
+     background-color: blue;
+}
+
+.areaPoints{
+    width: 80%;
+    height: 100px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 0px 0 20px 30px;
+    border: 1px;
+    border-color: #000000;
+    font-size: 30px;
+    padding: 50px 0 0 0px;
+    font-weight: bolder;
+    text-align: center;
 }
